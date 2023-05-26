@@ -15,19 +15,21 @@ $$props;
 .socket {
   display: inline-block;
   cursor: pointer;
-  border: 1px solid var(--blue-tint-3);
-  border-radius: calc(var(--socket-size, 10px) / 2);
-  width: var(--socket-size, 10px);
-  height: var(--socket-size, 10px);
-  margin: 5px var(--socket-size, 10px);
+  border: 1px solid white;
+  border-radius: calc(var(--socket-size) / 2);
+  width: var(--socket-size);
+  height: var(--socket-size);
+  margin: 5px var(--socket-margin);
   vertical-align: middle;
-  background: var(--socket-color, white);
+  background: var(--socket-color);
   z-index: 2;
   box-sizing: border-box;
 }
+
 .socket:hover {
   border-width: 4px;
 }
+
 .socket.multiple {
   border-color: yellow;
 }

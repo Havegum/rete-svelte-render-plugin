@@ -1,3 +1,4 @@
+import './variables.css';
 import { Scope } from 'rete';
 
 import { getRenderer } from './renderer';
@@ -43,7 +44,6 @@ export class SvelteRenderPlugin extends Scope {
     super.setParent(scope);
     for (const preset of this.presets) {
       if (preset.attach) {
-        console.log(this);
         preset.attach(this);
       }
     }

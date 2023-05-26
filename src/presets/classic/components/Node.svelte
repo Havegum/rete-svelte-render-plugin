@@ -2,9 +2,6 @@
 export let data;
 export let emit;
 
-let selected = false;
-let label = '';
-
 $: width = Number.isFinite(data.width) ? `${data.width}px` : '';
 $: height = Number.isFinite(data.height) ? `${data.height}px` : '';
 
@@ -16,18 +13,6 @@ function sortByIndex(entries) {
     return ai - bi;
   });
   return entries;
-}
-
-function getInputs(data) {
-  return sortByIndex(Object.entries(data.inputs || {}));
-}
-
-function getControls(data) {
-  return sortByIndex(Object.entries(data.controls || {}));
-}
-
-function getOutputs(data) {
-  return sortByIndex(Object.entries(data.outputs || {}));
 }
 
 function bind(element, { key, entity, type }) {
@@ -47,6 +32,7 @@ function bind(element, { key, entity, type }) {
       });
 
     case 'control':
+      console.log('bind control', element, key, entity);
       return emit({
         type: 'render',
         data: {
@@ -58,16 +44,23 @@ function bind(element, { key, entity, type }) {
   }
 }
 
-$: inputs = getInputs(data);
-$: controls = getControls(data);
-$: outputs = getOutputs(data);
+const getSorted = object => sortByIndex(Object.entries(object || {}));
+$: inputs = getSorted(data.inputs);
+$: controls = getSorted(data.controls);
+$: outputs = getSorted(data.outputs);
 </script>
 
-<div class="node" class:selected style:width style:height data-testid="node">
-  <div class="title" data-testid="title">{label}</div>
+<div
+  class="node"
+  class:selected={data.selected}
+  style:width
+  style:height
+  data-testid="node"
+>
+  <div class="title" data-testid="title">{data.label}</div>
 
   {#each outputs as [key, output] (key)}
-    <div class="output" data-testid="output-{+key}">
+    <div class="output" data-testid="output-{key}">
       <div class="output-title" data-testid="output-title">{output.label}</div>
       <div
         class="output-socket"
@@ -80,13 +73,13 @@ $: outputs = getOutputs(data);
   {#each controls as [key, control] (key)}
     <div
       class="control"
-      data-testid="control-{+key}"
+      data-testid="control-{key}"
       use:bind={{ key, entity: control, type: 'control' }}
     />
   {/each}
 
   {#each inputs as [key, input] (key)}
-    <div class="input" data-testid="input-{+key}">
+    <div class="input" data-testid="input-{key}">
       <div
         class="input-socket"
         data-testid="input-socket"
@@ -113,12 +106,12 @@ $: outputs = getOutputs(data);
 
 <style>
 .node {
-  background-color: var(--node-color, var(--blue-tint-4));
-  border: 1px solid var(--blue-tint-3);
+  background-color: var(--node-color);
+  border: 2px solid var(--node-border-color);
   border-radius: 10px;
   cursor: pointer;
   box-sizing: border-box;
-  min-width: var(--node-width, 100px);
+  min-width: var(--node-width);
   height: auto;
   padding-bottom: 6px;
   position: relative;
@@ -127,18 +120,17 @@ $: outputs = getOutputs(data);
   font-family: Arial;
 }
 
-/* .node:hover { */
-/* background: lighten($node-color, 4%); */
-/* } */
+.node:hover {
+  background-color: var(--node-color-hover);
+  background-color: var(--node-color-hover);
+}
 
 .node.selected {
-  /* background: $node-color-selected; */
-  border-color: #e3c000;
+  background-color: var(--node-color-selected);
+  border-color: var(--node-border-color-selected);
 }
 
 .title {
-  color: white;
-  font-family: sans-serif;
   font-size: 18px;
   padding: 8px;
 }
@@ -153,35 +145,35 @@ $: outputs = getOutputs(data);
 
 .output-socket {
   text-align: right;
-  /* margin-right: -(math.div($socket-size, 2) + $socket-margin); */
+  margin-right: calc(var(--socket-size) / 2 + var(--socket-margin));
   display: inline-block;
 }
 
 .input-socket {
   text-align: left;
-  /* margin-left: -(math.div($socket-size, 2) + $socket-margin); */
+  margin-left: calc(var(--socket-size) / 2 + var(--socket-margin));
   display: inline-block;
 }
 
 .input-title,
 .output-title {
   vertical-align: middle;
-  color: black;
   display: inline-block;
   font-family: sans-serif;
   font-size: 14px;
-  /* margin: $socket-margin; */
-  /* line-height: $socket-size; */
+  margin: var(--socket-margin);
+  line-height: var(--socket-size);
 }
 
 .input-control {
   z-index: 1;
-  /* width: calc(100% - #{$socket-size + 2 * $socket-margin}); */
+  width: calc(100% - var(--socket-size) + 2 * var(--socket-margin));
   vertical-align: middle;
   display: inline-block;
 }
 
 .control {
-  /* padding: $socket-margin math.div($socket-size, 2) + $socket-margin; */
+  padding: var(--socket-margin)
+    calc(var(--socket-size) / 2 + var(--socket-margin));
 }
 </style>

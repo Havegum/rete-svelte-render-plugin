@@ -4,8 +4,11 @@ export let data;
 function change(e) {
   const value =
     data.type === 'number' ? parseFloat(e.target.value) : e.target.value;
-  data.setValue(value);
+  console.log(data);
+  data = { ...data, value };
 }
+
+$: console.log($$props);
 </script>
 
 <input
@@ -15,3 +18,15 @@ function change(e) {
   on:change={change}
   on:pointerdown|stopPropagation
 />
+
+<style>
+input {
+  width: 100%;
+  border-radius: 30px;
+  background-color: white;
+  padding: 2px 6px;
+  border: 1px solid #999;
+  font-size: 110%;
+  box-sizing: border-box;
+}
+</style>

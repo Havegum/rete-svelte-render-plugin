@@ -121,8 +121,6 @@ export function setup(props) {
           },
         };
       } else if (context.data.type === 'socket') {
-        console.log(context);
-
         const component = socket ? socket(context.data) : Socket;
 
         return {
@@ -147,7 +145,10 @@ export function setup(props) {
           };
         }
 
-        if (context.data.payload instanceof ClassicPreset.InputControl) {
+        if (
+          context.data.payload instanceof ClassicPreset.InputControl ||
+          context.data.payload instanceof ClassicPreset.Control
+        ) {
           return {
             component: Control,
             props: {
