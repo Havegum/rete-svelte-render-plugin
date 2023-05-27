@@ -4,12 +4,7 @@ export let payload;
 $$props;
 </script>
 
-<div
-  class="socket"
-  class:input={side === 'input'}
-  class:output={side === 'output'}
-  title={payload.name}
-/>
+<div class="socket" title={payload.name} />
 
 <style>
 .socket {
@@ -19,7 +14,7 @@ $$props;
   border-radius: calc(var(--socket-size) / 2);
   width: var(--socket-size);
   height: var(--socket-size);
-  margin: 5px var(--socket-margin);
+  margin: var(--socket-margin);
   vertical-align: middle;
   background: var(--socket-color);
   z-index: 2;
@@ -28,17 +23,5 @@ $$props;
 
 .socket:hover {
   border-width: 4px;
-}
-
-.socket.multiple {
-  border-color: yellow;
-}
-
-.socket.output {
-  margin-right: calc(var(--socket-size, 10px) / -2);
-}
-
-.socket.input {
-  margin-left: calc(var(--socket-size, 10px) / -2);
 }
 </style>

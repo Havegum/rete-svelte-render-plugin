@@ -10,7 +10,6 @@ start;
 </script>
 
 <svg data-testid="connection">
-  <path class="casing" d={path} />
   <path d={path} />
 </svg>
 
@@ -26,12 +25,7 @@ svg {
 path {
   fill: none;
   stroke-width: 5px;
-  stroke: steelblue;
+  stroke: var(--connection-color);
   pointer-events: auto;
-}
-
-path.casing {
-  stroke-width: 8px;
-  stroke: var(--gray-tint-4);
 }
 </style>

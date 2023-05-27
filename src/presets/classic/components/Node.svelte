@@ -32,7 +32,6 @@ function bind(element, { key, entity, type }) {
       });
 
     case 'control':
-      console.log('bind control', element, key, entity);
       return emit({
         type: 'render',
         data: {
@@ -117,7 +116,7 @@ $: outputs = getSorted(data.outputs);
   position: relative;
   user-select: none;
   line-height: initial;
-  font-family: Arial;
+  font-family: var(--node-font-family);
 }
 
 .node:hover {
@@ -131,6 +130,7 @@ $: outputs = getSorted(data.outputs);
 }
 
 .title {
+  color: var(--node-text-color);
   font-size: 18px;
   padding: 8px;
 }
@@ -145,21 +145,22 @@ $: outputs = getSorted(data.outputs);
 
 .output-socket {
   text-align: right;
-  margin-right: calc(var(--socket-size) / 2 + var(--socket-margin));
+  margin-right: calc(-1 * (var(--socket-size) / 2 + var(--socket-margin)));
   display: inline-block;
 }
 
 .input-socket {
   text-align: left;
-  margin-left: calc(var(--socket-size) / 2 + var(--socket-margin));
+  margin-left: calc(-1 * (var(--socket-size) / 2 + var(--socket-margin)));
   display: inline-block;
 }
 
 .input-title,
 .output-title {
+  color: var(--node-text-color);
   vertical-align: middle;
   display: inline-block;
-  font-family: sans-serif;
+  font-family: var(--node-font-family);
   font-size: 14px;
   margin: var(--socket-margin);
   line-height: var(--socket-size);
@@ -167,7 +168,7 @@ $: outputs = getSorted(data.outputs);
 
 .input-control {
   z-index: 1;
-  width: calc(100% - var(--socket-size) + 2 * var(--socket-margin));
+  width: calc(100% - (var(--socket-size) + 2 * var(--socket-margin)));
   vertical-align: middle;
   display: inline-block;
 }

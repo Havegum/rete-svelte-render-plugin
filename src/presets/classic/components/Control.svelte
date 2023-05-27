@@ -4,11 +4,8 @@ export let data;
 function change(e) {
   const value =
     data.type === 'number' ? parseFloat(e.target.value) : e.target.value;
-  console.log(data);
   data = { ...data, value };
 }
-
-$: console.log($$props);
 </script>
 
 <input

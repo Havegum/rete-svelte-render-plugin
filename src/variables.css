@@ -3,6 +3,12 @@
   --node-color-hover: #7f99ffcc;
   --node-border-color: #4e58bf;
 
+  --connection-color: steelblue;
+
+  --node-text-color: #ffffff;
+  --node-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+
   --node-color-selected: #ffd92c;
   --node-border-color-selected: #e3c000;
   --group-color: rgba(15, 80, 255, 0.2);
