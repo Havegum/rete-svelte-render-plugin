@@ -4,7 +4,7 @@ export let data;
 function change(e) {
   const value =
     data.type === 'number' ? parseFloat(e.target.value) : e.target.value;
-  data = { ...data, value };
+  data.value = value;
 }
 </script>
 

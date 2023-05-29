@@ -16,7 +16,6 @@ function sortByIndex(entries) {
 }
 
 function bind(element, { key, entity, type }) {
-  console.log(arguments[0], arguments[1]);
   switch (type) {
     case 'input':
     case 'output':
