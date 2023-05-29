@@ -16,6 +16,7 @@ function sortByIndex(entries) {
 }
 
 function bind(element, { key, entity, type }) {
+  console.log(arguments[0], arguments[1]);
   switch (type) {
     case 'input':
     case 'output':
@@ -76,7 +77,6 @@ $: outputs = getSorted(data.outputs);
       use:bind={{ key, entity: control, type: 'control' }}
     />
   {/each}
-
   {#each inputs as [key, input] (key)}
     <div class="input" data-testid="input-{key}">
       <div
@@ -96,7 +96,7 @@ $: outputs = getSorted(data.outputs);
         <div
           class="input-control"
           data-testid="input-control"
-          use:bind={{ key, entity: input, type: 'input' }}
+          use:bind={{ key, entity: input.control, type: 'control' }}
         />
       {/if}
     </div>

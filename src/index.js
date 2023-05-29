@@ -100,4 +100,14 @@ export class SvelteRenderPlugin extends Scope {
 
     this.presets.push(local);
   }
+
+  parentScope(type) {
+    // FIXME: there is a bug where BaseArea crashes. I'm overloading this method to fix it.
+    // It's likely to do with me using `yarn link` to test this package in another project.
+    // ... I should probably just move this overload to that project.
+    if (!this.parent) throw new Error('cannot find parent');
+    if (type && this.parent instanceof type) return this.parent;
+    // if (type) throw new Error('actual parent is not instance of type'); // 👈 Uncomment this line to see the error
+    return this.parent;
+  }
 }

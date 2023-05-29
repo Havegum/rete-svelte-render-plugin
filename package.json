@@ -2,6 +2,7 @@
   "name": "rete-svelte-render-plugin",
   "version": "0.1.0",
   "main": "src/index.js",
+  "type": "module",
   "license": "MIT",
   "author": "Halvard Alvheim Vegum",
   "description": "Svelte render plugin for Rete.js",
